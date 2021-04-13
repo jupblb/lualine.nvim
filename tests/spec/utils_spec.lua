@@ -31,23 +31,16 @@ describe('utils', function()
   end)
 
   it('can retrive highlight groups', function()
-    local hl2 = {
-      guifg = '#aabbcc',
-      guibg = '#889977',
-      ctermfg = 34,
-      ctermbg = 89,
-      reverse = true
-    }
+    local hl2 = {fg = '#aabbcc', bg = '#889977', reverse = true}
     -- handles non existing hl groups
     eq(utils.extract_highlight_colors('hl2'), nil)
     -- create highlight
-    vim.cmd(string.format(
-                'hi hl2 guifg=%s guibg=%s ctermfg=%d ctermbg=%d gui=reverse',
-                hl2.guifg, hl2.guibg, hl2.ctermfg, hl2.ctermbg))
+    vim.cmd(
+        string.format('hi hl2 guifg=%s guibg=%s gui=reverse', hl2.fg, hl2.bg))
     -- Can retrive entire highlight table
     eq(utils.extract_highlight_colors('hl2'), hl2)
     -- Can retrive specific parts of highlight
-    eq(utils.extract_highlight_colors('hl2', 'guifg'), hl2.guifg)
+    eq(utils.extract_highlight_colors('hl2', 'fg'), hl2.fg)
     -- clear hl2
     vim.cmd 'hi clear hl2'
   end)
