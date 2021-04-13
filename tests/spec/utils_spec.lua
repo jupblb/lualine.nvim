@@ -53,3 +53,18 @@ describe('utils', function()
     eq(utils.list_shrink(list_with_holes), list_without_holes)
   end)
 end)
+
+describe('Cterm genarator', function()
+  local cterm = require'lualine.utils.cterm_colors'
+
+  it('can convert rgb to cterm', function()
+    local colors = {
+      ['#112233'] = 235,
+      ['#7928ae'] = 97,
+      ['#017bdc'] = 68,
+    }
+    for rgb, ct in pairs(colors) do
+      eq(cterm.get_cterm_color(rgb), tostring(ct))
+    end
+  end)
+end)
